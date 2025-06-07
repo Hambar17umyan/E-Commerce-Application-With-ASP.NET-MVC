@@ -18,9 +18,19 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Uuu()
+    {
+        return View(155);
+    }
+
     public IActionResult Privacy()
     {
         return View();
+    }
+
+    public IActionResult Show(PrivacyViewModel privacy)
+    {
+        return View(privacy);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

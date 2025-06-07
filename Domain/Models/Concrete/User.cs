@@ -1,12 +1,9 @@
-﻿namespace Domain.Models;
+﻿using Domain.Models.Abstract;
 
-public class User
+namespace Domain.Models.Concrete;
+
+public class User : DomainModel
 {
-    /// <summary>
-    /// Gets or sets the unique identifier for the User.
-    /// </summary>
-    public int Id { get; set; }
-
     /// <summary>
     /// Gets or sets the first name of the user.
     /// </summary>
@@ -51,6 +48,11 @@ public class User
     /// Gets or sets the date and time when the user was last updated.
     /// </summary>
     public DateTime LastUpdatedAt { get; set; } = DateTime.UtcNow;
+
+    /// <summary>
+    /// Gets or sets the shopping cart associated with the user, which contains items they intend to purchase.
+    /// </summary>
+    public Cart Cart { get; set; } = new Cart();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="User"/> class with default values.
@@ -105,7 +107,7 @@ public class User
                    this.Username == user.Username &&
                    this.Email == user.Email &&
                    this.PasswordHash == user.PasswordHash &&
-                   this.Role.Equals(user.Role);
+                   this.Role.Id == user.Role.Id;
         }
         return false;
     }
@@ -116,6 +118,6 @@ public class User
     /// <returns></returns>
     public override int GetHashCode()
     {
-        return HashCode.Combine(this.Id, this.Username, this.Email, this.PasswordHash, this.Role);
+        return base.GetHashCode();
     }
 }

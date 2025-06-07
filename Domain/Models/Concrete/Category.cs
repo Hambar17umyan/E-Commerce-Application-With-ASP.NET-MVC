@@ -1,15 +1,12 @@
-﻿namespace Domain.Models;
+﻿using Domain.Models.Abstract;
+
+namespace Domain.Models.Concrete;
 
 /// <summary>
 /// Represents a category in the e-commerce system.
 /// </summary>
-public class Category
+public class Category : DomainModel
 {
-    /// <summary>
-    /// Gets or sets the unique identifier for the category.
-    /// </summary>
-    public int Id { get; set; }
-
     /// <summary>
     /// Gets or sets the name of the category.
     /// </summary>
@@ -86,6 +83,6 @@ public class Category
     /// <returns></returns>
     public override int GetHashCode()
     {
-        return HashCode.Combine(this.Id, this.Name, this.Description, this.CreatedAt, this.LastUpdatedAt);
+        return base.GetHashCode();
     }
 }

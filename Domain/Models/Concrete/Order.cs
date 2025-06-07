@@ -1,19 +1,21 @@
-﻿namespace Domain.Models;
+﻿using Domain.Models.Abstract;
+
+namespace Domain.Models.Concrete;
 
 /// <summary>
 /// Represents an order in the e-commerce system.
 /// </summary>
-public class Order
+public class Order : DomainModel
 {
-    /// <summary>
-    /// Gets or sets the unique identifier for the order.
-    /// </summary>
-    public int Id { get; set; }
-
     /// <summary>
     /// Gets or sets the customer identifier associated with the order.
     /// </summary>
-    public int CustomerId { get; set; }
+    public User User { get; set; } = new User();
+
+    /// <summary>
+    /// Gets or sets the list of items included in the order.
+    /// </summary>
+    public List<OrderItem> Items { get; set; } = new List<OrderItem>();
 
     /// <summary>
     /// Gets or sets the date and time when the order was placed.
@@ -31,14 +33,14 @@ public class Order
     public decimal DiscountAmount { get; set; }
 
     /// <summary>
-    /// Gets or sets the status of the order (e.g., Pending, Shipped, Delivered).
-    /// </summary>
-    public decimal TotalAmount => this.TotalAmountWithoutDiscount - this.DiscountAmount;
-
-    /// <summary>
     /// Gets or sets the status of the order.
     /// </summary>
     public OrderStatus Status { get; set; } = OrderStatus.None;
+
+    /// <summary>
+    /// Gets the total amount of the order after applying the discount.
+    /// </summary>
+    public decimal TotalAmount => TotalAmountWithoutDiscount - DiscountAmount;
 
     /// <summary>
     /// Returns a string representation of the order, including its properties.
@@ -48,7 +50,7 @@ public class Order
     {
         return $"Order:\n" +
                $"Id: {this.Id}\n" +
-               $"CustomerId: {this.CustomerId}\n" +
+               $"User: {this.User.FirstName} {this.User.LastName}\n" +
                $"OrderDate: {this.OrderDate}\n" +
                $"TotalAmountWithoutDiscount: {this.TotalAmountWithoutDiscount}\n" +
                $"DiscountAmount: {this.DiscountAmount}\n" +
@@ -66,11 +68,12 @@ public class Order
         if (obj is Order order)
         {
             return this.Id == order.Id &&
-                   this.CustomerId == order.CustomerId &&
+                   this.User.Id == order.User.Id &&
                    this.OrderDate == order.OrderDate &&
                    this.TotalAmountWithoutDiscount == order.TotalAmountWithoutDiscount &&
                    this.DiscountAmount == order.DiscountAmount &&
-                   this.Status == order.Status;
+                   this.Status == order.Status &&
+                   this.Items.SequenceEqual(order.Items);
         }
         return false;
     }
@@ -81,6 +84,6 @@ public class Order
     /// <returns></returns>
     public override int GetHashCode()
     {
-        return HashCode.Combine(this.Id, this.CustomerId, this.OrderDate, this.TotalAmountWithoutDiscount, this.DiscountAmount, this.Status);
+        return base.GetHashCode();
     }
 }

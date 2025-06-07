@@ -1,15 +1,12 @@
-﻿namespace Domain.Models;
+﻿using Domain.Models.Abstract;
+
+namespace Domain.Models.Concrete;
 
 /// <summary>
 /// Represents a user role in the e-commerce system.
 /// </summary>
-public class UserRole
+public class UserRole : DomainModel
 {
-    /// <summary>
-    /// Gets or sets the unique identifier for the user role.
-    /// </summary>
-    public int Id { get; set; }
-
     /// <summary>
     /// Gets or sets the name of the user role.
     /// </summary>
@@ -25,9 +22,9 @@ public class UserRole
     /// </summary>
     public UserRole()
     {
-        this.Id = 0;
-        this.Name = string.Empty;
-        this.Description = string.Empty;
+        Id = 0;
+        Name = string.Empty;
+        Description = string.Empty;
     }
 
     /// <summary>
@@ -38,9 +35,9 @@ public class UserRole
     /// <param name="description">The user role description.</param>
     public UserRole(int id, string name, string description)
     {
-        this.Id = id;
-        this.Name = name;
-        this.Description = description;
+        Id = id;
+        Name = name;
+        Description = description;
     }
 
     /// <summary>
@@ -74,6 +71,6 @@ public class UserRole
     /// <returns></returns>
     public override int GetHashCode()
     {
-        return HashCode.Combine(this.Id, this.Name, this.Description);
+        return base.GetHashCode();
     }
 }

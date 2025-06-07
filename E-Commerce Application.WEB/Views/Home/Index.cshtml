@@ -1,8 +1,16 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model PrivacyViewModel
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
+    <a asp-controller="Home" asp-action="Privacy">Hello</a>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div>
+    <form id="LoginForm">
+        <input type = "text" id="login-input" asp-for="Login" />
+        <input type = "password" id="password-input" asp-for="Password"/>
+    </form>
+
+    <button type="submit" asp-controller="Home" asp-action="Show">Gnac</button>
 </div>

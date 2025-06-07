@@ -1,15 +1,12 @@
-﻿namespace Domain.Models;
+﻿using Domain.Models.Abstract;
+
+namespace Domain.Models.Concrete;
 
 /// <summary>
 /// Represents a product in the e-commerce system.
 /// </summary>
-public class Product
+public class Product : DomainModel
 {
-    /// <summary>
-    /// Gets or sets the unique identifier for the product.
-    /// </summary>
-    public int Id { get; set; }
-
     /// <summary>
     /// Gets or sets the name of the product.
     /// </summary>
@@ -45,6 +42,10 @@ public class Product
     /// </summary>
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
+    /// <summary>
+    /// Returns a string representation of the product, including its properties.
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
     {
         return $"Product:\n" +
@@ -70,7 +71,7 @@ public class Product
             return this.Id == product.Id &&
                    this.Name == product.Name &&
                    this.Description == product.Description &&
-                   this.Category.Equals(product.Category) &&
+                   this.Category.Id == product.Category.Id &&
                    this.Price == product.Price &&
                    this.StockQuantity == product.StockQuantity &&
                    this.CreatedAt == product.CreatedAt &&
@@ -85,6 +86,6 @@ public class Product
     /// <returns></returns>
     public override int GetHashCode()
     {
-        return HashCode.Combine(Id, Name, Description, Category, Price, StockQuantity, CreatedAt, UpdatedAt);
+        return base.GetHashCode();
     }
 }

@@ -1,3 +1,5 @@
+using E_Commerce_Application.WEB.Extensions;
+
 namespace E_Commerce_Application.WEB
 {
     public class Program
@@ -5,10 +7,8 @@ namespace E_Commerce_Application.WEB
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
-
+            builder.Services.ConfigureDevelopmentServices();
+            builder.Services.AddDb(builder.Configuration);
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -29,6 +29,10 @@ namespace E_Commerce_Application.WEB
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapControllerRoute(
+               name: "default",
+               pattern: "{controller=Home}/{action=Uuu}/{id?}");
 
             app.Run();
         }

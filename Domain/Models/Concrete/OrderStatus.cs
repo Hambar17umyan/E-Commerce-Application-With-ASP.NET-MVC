@@ -1,4 +1,4 @@
-﻿namespace Domain.Models;
+﻿namespace Domain.Models.Concrete;
 
 /// <summary>
 /// Represents the status of an order in the e-commerce system.
